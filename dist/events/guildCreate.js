@@ -1,0 +1,10 @@
+export async function guildCreate(guild) {
+    if (guild.id === "1169381800741711923")
+        return;
+    const owner = await guild.fetchOwner();
+    owner.send({
+        content: `### What is this place?\n- Someone invited me to your server, but I only work in [Prismatic](<https://discord.gg/friendships>)!\n- I'm scared of other servers 〣 ( ºΔº ) 〣\n- Anyway, congrats on finding this easter egg if you invited this bot! If you didn't, you should probably talk to your admins about inviting random bots.`,
+    });
+    await guild.leave();
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ3VpbGRDcmVhdGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvZXZlbnRzL2d1aWxkQ3JlYXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLE1BQU0sQ0FBQyxLQUFLLFVBQVUsV0FBVyxDQUFDLEtBQVk7SUFDNUMsSUFBSSxLQUFLLENBQUMsRUFBRSxLQUFLLHFCQUFxQjtRQUFFLE9BQU87SUFDL0MsTUFBTSxLQUFLLEdBQUcsTUFBTSxLQUFLLENBQUMsVUFBVSxFQUFFLENBQUM7SUFDdkMsS0FBSyxDQUFDLElBQUksQ0FBQztRQUNULE9BQU8sRUFBRSx1VUFBdVU7S0FDalYsQ0FBQyxDQUFDO0lBQ0gsTUFBTSxLQUFLLENBQUMsS0FBSyxFQUFFLENBQUM7QUFDdEIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEd1aWxkIH0gZnJvbSBcImRpc2NvcmQuanNcIjtcclxuXHJcbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBndWlsZENyZWF0ZShndWlsZDogR3VpbGQpIHtcclxuICBpZiAoZ3VpbGQuaWQgPT09IFwiMTE2OTM4MTgwMDc0MTcxMTkyM1wiKSByZXR1cm47XHJcbiAgY29uc3Qgb3duZXIgPSBhd2FpdCBndWlsZC5mZXRjaE93bmVyKCk7XHJcbiAgb3duZXIuc2VuZCh7XHJcbiAgICBjb250ZW50OiBgIyMjIFdoYXQgaXMgdGhpcyBwbGFjZT9cXG4tIFNvbWVvbmUgaW52aXRlZCBtZSB0byB5b3VyIHNlcnZlciwgYnV0IEkgb25seSB3b3JrIGluIFtQcmlzbWF0aWNdKDxodHRwczovL2Rpc2NvcmQuZ2cvZnJpZW5kc2hpcHM+KSFcXG4tIEknbSBzY2FyZWQgb2Ygb3RoZXIgc2VydmVycyDjgKMgKCDCus6UwrogKSDjgKNcXG4tIEFueXdheSwgY29uZ3JhdHMgb24gZmluZGluZyB0aGlzIGVhc3RlciBlZ2cgaWYgeW91IGludml0ZWQgdGhpcyBib3QhIElmIHlvdSBkaWRuJ3QsIHlvdSBzaG91bGQgcHJvYmFibHkgdGFsayB0byB5b3VyIGFkbWlucyBhYm91dCBpbnZpdGluZyByYW5kb20gYm90cy5gLFxyXG4gIH0pO1xyXG4gIGF3YWl0IGd1aWxkLmxlYXZlKCk7XHJcbn1cclxuIl19

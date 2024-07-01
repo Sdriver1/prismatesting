@@ -1,0 +1,21 @@
+import * as Discord from "discord.js";
+import { get_currency_balance } from "../currency/operations/arithmetic.js";
+export default {
+    data: new Discord.SlashCommandBuilder()
+        .setName("rewardprogress")
+        .setDescription("See your progress on #get-started -> rewards")
+        .addUserOption((option) => option
+        .setName("target")
+        .setDescription("The user whose progress to check")),
+    run: async function (interaction) {
+        const target = interaction.options.getUser("target") || interaction.user;
+        const message_count = await get_currency_balance(target.id, "monthlymessages");
+        interaction.editReply({
+            content: `### ${target.displayName}'s Progress\n▸ Messages: **${message_count}**\n▸ **[Reward list available here.](<https://discord.com/channels/921403338069770280/1191404399608725555/1191404404369272842>)**`,
+        });
+    },
+    options: {
+        server_cooldown: 0,
+    },
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV3YXJkcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jb21tYW5kcy9yZXdhcmRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sS0FBSyxPQUFPLE1BQU0sWUFBWSxDQUFDO0FBQ3RDLE9BQU8sRUFBRSxvQkFBb0IsRUFBRSxNQUFNLHNDQUFzQyxDQUFDO0FBQzVFLGVBQWU7SUFDYixJQUFJLEVBQUUsSUFBSSxPQUFPLENBQUMsbUJBQW1CLEVBQUU7U0FDcEMsT0FBTyxDQUFDLGdCQUFnQixDQUFDO1NBQ3pCLGNBQWMsQ0FBQyw4Q0FBOEMsQ0FBQztTQUM5RCxhQUFhLENBQUMsQ0FBQyxNQUFNLEVBQUUsRUFBRSxDQUN4QixNQUFNO1NBQ0gsT0FBTyxDQUFDLFFBQVEsQ0FBQztTQUNqQixjQUFjLENBQUMsa0NBQWtDLENBQUMsQ0FDdEQ7SUFDSCxHQUFHLEVBQUUsS0FBSyxXQUFXLFdBQWdEO1FBQ25FLE1BQU0sTUFBTSxHQUFHLFdBQVcsQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxJQUFJLFdBQVcsQ0FBQyxJQUFJLENBQUM7UUFDekUsTUFBTSxhQUFhLEdBQUcsTUFBTSxvQkFBb0IsQ0FDOUMsTUFBTSxDQUFDLEVBQUUsRUFDVCxpQkFBaUIsQ0FDbEIsQ0FBQztRQUNGLFdBQVcsQ0FBQyxTQUFTLENBQUM7WUFDcEIsT0FBTyxFQUFFLE9BQU8sTUFBTSxDQUFDLFdBQVcsOEJBQThCLGFBQWEsb0lBQW9JO1NBQ2xOLENBQUMsQ0FBQztJQUNMLENBQUM7SUFDRCxPQUFPLEVBQUU7UUFDUCxlQUFlLEVBQUUsQ0FBQztLQUNuQjtDQUNGLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBEaXNjb3JkIGZyb20gXCJkaXNjb3JkLmpzXCI7XHJcbmltcG9ydCB7IGdldF9jdXJyZW5jeV9iYWxhbmNlIH0gZnJvbSBcIi4uL2N1cnJlbmN5L29wZXJhdGlvbnMvYXJpdGhtZXRpYy5qc1wiO1xyXG5leHBvcnQgZGVmYXVsdCB7XHJcbiAgZGF0YTogbmV3IERpc2NvcmQuU2xhc2hDb21tYW5kQnVpbGRlcigpXHJcbiAgICAuc2V0TmFtZShcInJld2FyZHByb2dyZXNzXCIpXHJcbiAgICAuc2V0RGVzY3JpcHRpb24oXCJTZWUgeW91ciBwcm9ncmVzcyBvbiAjZ2V0LXN0YXJ0ZWQgLT4gcmV3YXJkc1wiKVxyXG4gICAgLmFkZFVzZXJPcHRpb24oKG9wdGlvbikgPT5cclxuICAgICAgb3B0aW9uXHJcbiAgICAgICAgLnNldE5hbWUoXCJ0YXJnZXRcIilcclxuICAgICAgICAuc2V0RGVzY3JpcHRpb24oXCJUaGUgdXNlciB3aG9zZSBwcm9ncmVzcyB0byBjaGVja1wiKVxyXG4gICAgKSxcclxuICBydW46IGFzeW5jIGZ1bmN0aW9uIChpbnRlcmFjdGlvbjogRGlzY29yZC5DaGF0SW5wdXRDb21tYW5kSW50ZXJhY3Rpb24pIHtcclxuICAgIGNvbnN0IHRhcmdldCA9IGludGVyYWN0aW9uLm9wdGlvbnMuZ2V0VXNlcihcInRhcmdldFwiKSB8fCBpbnRlcmFjdGlvbi51c2VyO1xyXG4gICAgY29uc3QgbWVzc2FnZV9jb3VudCA9IGF3YWl0IGdldF9jdXJyZW5jeV9iYWxhbmNlKFxyXG4gICAgICB0YXJnZXQuaWQsXHJcbiAgICAgIFwibW9udGhseW1lc3NhZ2VzXCJcclxuICAgICk7XHJcbiAgICBpbnRlcmFjdGlvbi5lZGl0UmVwbHkoe1xyXG4gICAgICBjb250ZW50OiBgIyMjICR7dGFyZ2V0LmRpc3BsYXlOYW1lfSdzIFByb2dyZXNzXFxu4pa4IE1lc3NhZ2VzOiAqKiR7bWVzc2FnZV9jb3VudH0qKlxcbuKWuCAqKltSZXdhcmQgbGlzdCBhdmFpbGFibGUgaGVyZS5dKDxodHRwczovL2Rpc2NvcmQuY29tL2NoYW5uZWxzLzkyMTQwMzMzODA2OTc3MDI4MC8xMTkxNDA0Mzk5NjA4NzI1NTU1LzExOTE0MDQ0MDQzNjkyNzI4NDI+KSoqYCxcclxuICAgIH0pO1xyXG4gIH0sXHJcbiAgb3B0aW9uczoge1xyXG4gICAgc2VydmVyX2Nvb2xkb3duOiAwLFxyXG4gIH0sXHJcbn07XHJcbiJdfQ==

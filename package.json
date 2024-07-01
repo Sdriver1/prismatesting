@@ -1,0 +1,21 @@
+{
+  "name": "star",
+  "version": "1.0.0",
+  "description": "The best leveling bot on Discord.",
+  "main": "dist/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cringelord",
+  "license": "SEE LICENSE IN license.md",
+  "type": "module",
+  "dependencies": {
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "prettier": "^3.3.2",
+    "sql-template-strings": "^2.2.2",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "typescript": "^5.5.3"
+  }
+}

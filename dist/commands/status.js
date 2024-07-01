@@ -1,0 +1,40 @@
+import * as Discord from "discord.js";
+import { client } from "../startup/client.js";
+export default {
+    data: new Discord.SlashCommandBuilder()
+        .setName("status")
+        .setDescription("Set my status!")
+        .addStringOption((option) => option
+        .setName("presence")
+        .setDescription("My presence (the green/yellow/red dot)")
+        .addChoices({ name: "Online (green)", value: "online" }, { name: "Idle (yellow)", value: "idle" }, { name: "Do Not Disturb (red)", value: "dnd" }, { name: "Invisible (gray (appears offline))", value: "invisible" }))
+        .addStringOption((option) => option.setName("status").setDescription("The custom status message")),
+    run: async function (interaction) {
+        const bot_data = {
+            presence: client.user.presence.status,
+            status: client.user.presence.activities[0]
+                ? client.user.presence.activities[0].state
+                : "",
+        };
+        const new_bot_data = {
+            presence: interaction.options.getString("presence") ||
+                bot_data.presence,
+            status: interaction.options.getString("status") || bot_data.status,
+        };
+        client.user.setPresence({
+            activities: [
+                {
+                    type: Discord.ActivityType.Custom,
+                    name: "custom",
+                    state: new_bot_data.status,
+                },
+            ],
+            status: new_bot_data.presence,
+        });
+        interaction.editReply("**Great choice!** Status set.");
+    },
+    options: {
+        server_cooldown: 0,
+    },
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3RhdHVzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL2NvbW1hbmRzL3N0YXR1cy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEtBQUssT0FBTyxNQUFNLFlBQVksQ0FBQztBQUN0QyxPQUFPLEVBQUUsTUFBTSxFQUFFLE1BQU0sc0JBQXNCLENBQUM7QUFDOUMsZUFBZTtJQUNiLElBQUksRUFBRSxJQUFJLE9BQU8sQ0FBQyxtQkFBbUIsRUFBRTtTQUNwQyxPQUFPLENBQUMsUUFBUSxDQUFDO1NBQ2pCLGNBQWMsQ0FBQyxnQkFBZ0IsQ0FBQztTQUNoQyxlQUFlLENBQUMsQ0FBQyxNQUFNLEVBQUUsRUFBRSxDQUMxQixNQUFNO1NBQ0gsT0FBTyxDQUFDLFVBQVUsQ0FBQztTQUNuQixjQUFjLENBQUMsd0NBQXdDLENBQUM7U0FDeEQsVUFBVSxDQUNULEVBQUUsSUFBSSxFQUFFLGdCQUFnQixFQUFFLEtBQUssRUFBRSxRQUFRLEVBQUUsRUFDM0MsRUFBRSxJQUFJLEVBQUUsZUFBZSxFQUFFLEtBQUssRUFBRSxNQUFNLEVBQUUsRUFDeEMsRUFBRSxJQUFJLEVBQUUsc0JBQXNCLEVBQUUsS0FBSyxFQUFFLEtBQUssRUFBRSxFQUM5QyxFQUFFLElBQUksRUFBRSxvQ0FBb0MsRUFBRSxLQUFLLEVBQUUsV0FBVyxFQUFFLENBQ25FLENBQ0o7U0FDQSxlQUFlLENBQUMsQ0FBQyxNQUFNLEVBQUUsRUFBRSxDQUMxQixNQUFNLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxDQUFDLGNBQWMsQ0FBQywyQkFBMkIsQ0FBQyxDQUNyRTtJQUNILEdBQUcsRUFBRSxLQUFLLFdBQVcsV0FBZ0Q7UUFDbkUsTUFBTSxRQUFRLEdBQUc7WUFDZixRQUFRLEVBQUUsTUFBTSxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsTUFBTTtZQUNyQyxNQUFNLEVBQUUsTUFBTSxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsVUFBVSxDQUFDLENBQUMsQ0FBQztnQkFDeEMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLFVBQVUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxLQUFLO2dCQUMxQyxDQUFDLENBQUMsRUFBRTtTQUNQLENBQUM7UUFDRixNQUFNLFlBQVksR0FBRztZQUNuQixRQUFRLEVBQ0wsV0FBVyxDQUFDLE9BQU8sQ0FBQyxTQUFTLENBQzVCLFVBQVUsQ0FDb0I7Z0JBQy9CLFFBQVEsQ0FBQyxRQUF1QztZQUNuRCxNQUFNLEVBQUUsV0FBVyxDQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLElBQUksUUFBUSxDQUFDLE1BQU07U0FDbkUsQ0FBQztRQUNGLE1BQU0sQ0FBQyxJQUFJLENBQUMsV0FBVyxDQUFDO1lBQ3RCLFVBQVUsRUFBRTtnQkFDVjtvQkFDRSxJQUFJLEVBQUUsT0FBTyxDQUFDLFlBQVksQ0FBQyxNQUFNO29CQUNqQyxJQUFJLEVBQUUsUUFBUTtvQkFDZCxLQUFLLEVBQUUsWUFBWSxDQUFDLE1BQU07aUJBQzNCO2FBQ0Y7WUFDRCxNQUFNLEVBQUUsWUFBWSxDQUFDLFFBQVE7U0FDOUIsQ0FBQyxDQUFDO1FBQ0gsV0FBVyxDQUFDLFNBQVMsQ0FBQywrQkFBK0IsQ0FBQyxDQUFDO0lBQ3pELENBQUM7SUFDRCxPQUFPLEVBQUU7UUFDUCxlQUFlLEVBQUUsQ0FBQztLQUNuQjtDQUNGLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBEaXNjb3JkIGZyb20gXCJkaXNjb3JkLmpzXCI7XHJcbmltcG9ydCB7IGNsaWVudCB9IGZyb20gXCIuLi9zdGFydHVwL2NsaWVudC5qc1wiO1xyXG5leHBvcnQgZGVmYXVsdCB7XHJcbiAgZGF0YTogbmV3IERpc2NvcmQuU2xhc2hDb21tYW5kQnVpbGRlcigpXHJcbiAgICAuc2V0TmFtZShcInN0YXR1c1wiKVxyXG4gICAgLnNldERlc2NyaXB0aW9uKFwiU2V0IG15IHN0YXR1cyFcIilcclxuICAgIC5hZGRTdHJpbmdPcHRpb24oKG9wdGlvbikgPT5cclxuICAgICAgb3B0aW9uXHJcbiAgICAgICAgLnNldE5hbWUoXCJwcmVzZW5jZVwiKVxyXG4gICAgICAgIC5zZXREZXNjcmlwdGlvbihcIk15IHByZXNlbmNlICh0aGUgZ3JlZW4veWVsbG93L3JlZCBkb3QpXCIpXHJcbiAgICAgICAgLmFkZENob2ljZXMoXHJcbiAgICAgICAgICB7IG5hbWU6IFwiT25saW5lIChncmVlbilcIiwgdmFsdWU6IFwib25saW5lXCIgfSxcclxuICAgICAgICAgIHsgbmFtZTogXCJJZGxlICh5ZWxsb3cpXCIsIHZhbHVlOiBcImlkbGVcIiB9LFxyXG4gICAgICAgICAgeyBuYW1lOiBcIkRvIE5vdCBEaXN0dXJiIChyZWQpXCIsIHZhbHVlOiBcImRuZFwiIH0sXHJcbiAgICAgICAgICB7IG5hbWU6IFwiSW52aXNpYmxlIChncmF5IChhcHBlYXJzIG9mZmxpbmUpKVwiLCB2YWx1ZTogXCJpbnZpc2libGVcIiB9XHJcbiAgICAgICAgKVxyXG4gICAgKVxyXG4gICAgLmFkZFN0cmluZ09wdGlvbigob3B0aW9uKSA9PlxyXG4gICAgICBvcHRpb24uc2V0TmFtZShcInN0YXR1c1wiKS5zZXREZXNjcmlwdGlvbihcIlRoZSBjdXN0b20gc3RhdHVzIG1lc3NhZ2VcIilcclxuICAgICksXHJcbiAgcnVuOiBhc3luYyBmdW5jdGlvbiAoaW50ZXJhY3Rpb246IERpc2NvcmQuQ2hhdElucHV0Q29tbWFuZEludGVyYWN0aW9uKSB7XHJcbiAgICBjb25zdCBib3RfZGF0YSA9IHtcclxuICAgICAgcHJlc2VuY2U6IGNsaWVudC51c2VyLnByZXNlbmNlLnN0YXR1cyxcclxuICAgICAgc3RhdHVzOiBjbGllbnQudXNlci5wcmVzZW5jZS5hY3Rpdml0aWVzWzBdXHJcbiAgICAgICAgPyBjbGllbnQudXNlci5wcmVzZW5jZS5hY3Rpdml0aWVzWzBdLnN0YXRlXHJcbiAgICAgICAgOiBcIlwiLFxyXG4gICAgfTtcclxuICAgIGNvbnN0IG5ld19ib3RfZGF0YSA9IHtcclxuICAgICAgcHJlc2VuY2U6XHJcbiAgICAgICAgKGludGVyYWN0aW9uLm9wdGlvbnMuZ2V0U3RyaW5nKFxyXG4gICAgICAgICAgXCJwcmVzZW5jZVwiXHJcbiAgICAgICAgKSBhcyBEaXNjb3JkLlByZXNlbmNlU3RhdHVzRGF0YSkgfHxcclxuICAgICAgICAoYm90X2RhdGEucHJlc2VuY2UgYXMgRGlzY29yZC5QcmVzZW5jZVN0YXR1c0RhdGEpLFxyXG4gICAgICBzdGF0dXM6IGludGVyYWN0aW9uLm9wdGlvbnMuZ2V0U3RyaW5nKFwic3RhdHVzXCIpIHx8IGJvdF9kYXRhLnN0YXR1cyxcclxuICAgIH07XHJcbiAgICBjbGllbnQudXNlci5zZXRQcmVzZW5jZSh7XHJcbiAgICAgIGFjdGl2aXRpZXM6IFtcclxuICAgICAgICB7XHJcbiAgICAgICAgICB0eXBlOiBEaXNjb3JkLkFjdGl2aXR5VHlwZS5DdXN0b20sXHJcbiAgICAgICAgICBuYW1lOiBcImN1c3RvbVwiLFxyXG4gICAgICAgICAgc3RhdGU6IG5ld19ib3RfZGF0YS5zdGF0dXMsXHJcbiAgICAgICAgfSxcclxuICAgICAgXSxcclxuICAgICAgc3RhdHVzOiBuZXdfYm90X2RhdGEucHJlc2VuY2UsXHJcbiAgICB9KTtcclxuICAgIGludGVyYWN0aW9uLmVkaXRSZXBseShcIioqR3JlYXQgY2hvaWNlISoqIFN0YXR1cyBzZXQuXCIpO1xyXG4gIH0sXHJcbiAgb3B0aW9uczoge1xyXG4gICAgc2VydmVyX2Nvb2xkb3duOiAwLFxyXG4gIH0sXHJcbn07XHJcbiJdfQ==
